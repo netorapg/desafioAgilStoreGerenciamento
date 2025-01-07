@@ -8,9 +8,11 @@ import java.util.Optional;
 
 public class ProductService {
     private final ProductRepo productRepo;
+    private int currentMaxId;
 
     public ProductService(ProductRepo productRepo) {
         this.productRepo = productRepo;
+        this.currentMaxId = productRepo.getMaxProductId();
     }
 
     public void addProduct(Product product) {
@@ -23,11 +25,7 @@ public class ProductService {
 
     public Product getProductById(int id) {
         Optional<Product> product = productRepo.getProductById(id);
-        if (product.isPresent()) {
-            return product.get();
-        } else {
-            throw new RuntimeException("Produto com ID " + id + " não encontrado.");
-        }
+        return product.orElseThrow(() -> new RuntimeException("Produto com ID " + id + " não encontrado."));
     }
 
     public void updateProduct(Product updatedProduct) {
@@ -42,5 +40,9 @@ public class ProductService {
         if (!removed) {
             throw new RuntimeException("Não foi possível remover o produto. Produto com ID " + id + " não encontrado.");
         }
+    }
+
+    public int generateNewId() {
+        return ++currentMaxId;
     }
 }

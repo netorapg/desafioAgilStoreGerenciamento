@@ -7,13 +7,16 @@ public class Product {
     private double price;
     private String description;
 
+    public Product() {
+    }
+
     // Construtor
     public Product(int id, String name, int quantity, double price, String description) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.price = price;
-        this.description = "";
+        this.description = description;
     }
 
     // Getters e Setters
