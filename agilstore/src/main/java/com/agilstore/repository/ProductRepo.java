@@ -17,7 +17,7 @@ public class ProductRepo {
 
     public ProductRepo() {
         this.objectMapper = new ObjectMapper();
-        this.products = loadProducts();  // Carregar produtos do arquivo ao inicializar
+        this.products = loadProducts(); // Carregar produtos do arquivo ao inicializar
     }
 
     // Carregar os produtos do arquivo JSON
@@ -25,7 +25,8 @@ public class ProductRepo {
         try {
             File file = new File(FILE_PATH);
             if (file.exists()) {
-                return objectMapper.readValue(file, objectMapper.getTypeFactory().constructCollectionType(List.class, Product.class));
+                return objectMapper.readValue(file,
+                        objectMapper.getTypeFactory().constructCollectionType(List.class, Product.class));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,4 +83,15 @@ public class ProductRepo {
         }
         return removed;
     }
+
+    public List<Product> searchProducts(String name, Integer id) {
+        return products.stream()
+                .filter(product -> 
+                    (name == null || product.getName().toLowerCase().contains(name.toLowerCase())) &&
+                    (id == null || product.getId() == id)
+                )
+                .toList();
+    }
+    
+
 }

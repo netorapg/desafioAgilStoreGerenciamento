@@ -45,4 +45,9 @@ public class ProductService {
     public int generateNewId() {
         return ++currentMaxId;
     }
+
+    public List<Product> searchProducts(String name, Integer id) {
+        return productRepo.searchProducts(name, id);
+    }
+    
 }
