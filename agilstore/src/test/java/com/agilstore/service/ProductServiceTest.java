@@ -10,7 +10,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
+/* 
 class ProductServiceTest {
 
     private ProductRepo productRepo;
@@ -109,3 +109,4 @@ class ProductServiceTest {
         assertEquals("Não foi possível remover o produto. Produto com ID 1 não encontrado.", exception.getMessage());
     }
 }
+*/

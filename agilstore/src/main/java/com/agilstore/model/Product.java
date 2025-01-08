@@ -4,6 +4,7 @@ public class Product {
     private int id;
     private String name;
     private int quantity;
+    private String category;
     private double price;
     private String description;
 
@@ -11,10 +12,11 @@ public class Product {
     }
 
     // Construtor
-    public Product(int id, String name, int quantity, double price, String description) {
+    public Product(int id, String name, int quantity, String category, double price, String description) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;
+        this.category = category;
         this.price = price;
         this.description = description;
     }
@@ -42,6 +44,14 @@ public class Product {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public double getPrice() {
