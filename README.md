@@ -27,11 +27,11 @@ Siga as instruções abaixo para executar a aplicação:
 
 ### Passo 1: Clonar o Repositório
 ```bash
-git clone <URL-do-repositorio>
+git clone https://github.com/netorapg/desafioAgilStoreGerenciamento.git
 ```
 ### Passo 2: Entre no diretório
 ```bash
-cd <nome-da-pasta-do-projeto>
+cd desafioAgilStoreGerenciamento
 ```
 ### Passo 3: Compile o projeto com Maven
 ```bash
