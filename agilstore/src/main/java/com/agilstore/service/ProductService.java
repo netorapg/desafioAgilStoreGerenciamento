@@ -2,7 +2,6 @@ package com.agilstore.service;
 
 import com.agilstore.model.Product;
 import com.agilstore.repository.ProductRepo;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +30,8 @@ public class ProductService {
     public void updateProduct(Product updatedProduct) {
         boolean updated = productRepo.updateProduct(updatedProduct);
         if (!updated) {
-            throw new RuntimeException("Não foi possível atualizar o produto. Produto com ID " + updatedProduct.getId() + " não encontrado.");
+            throw new RuntimeException("Não foi possível atualizar o produto. Produto com ID " + updatedProduct.getId()
+                    + " não encontrado.");
         }
     }
 
@@ -49,5 +49,5 @@ public class ProductService {
     public List<Product> searchProducts(String name, Integer id) {
         return productRepo.searchProducts(name, id);
     }
-    
+
 }

@@ -3,7 +3,6 @@ package com.agilstore.cli;
 import com.agilstore.model.Product;
 import com.agilstore.repository.ProductRepo;
 import com.agilstore.service.ProductService;
-
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,7 +11,6 @@ public class CLI {
     private Scanner scanner;
 
     public CLI(ProductService productService2) {
-        // Inicialize o ProductRepo e o ProductService corretamente
         ProductRepo productRepo = new ProductRepo();
         this.productService = new ProductService(productRepo);
         this.scanner = new Scanner(System.in);
@@ -28,7 +26,7 @@ public class CLI {
             System.out.println("6. Sair");
             System.out.print("Escolha uma opção: ");
             int option = scanner.nextInt();
-            scanner.nextLine(); // Consumir a nova linha
+            scanner.nextLine();
 
             switch (option) {
                 case 1:
@@ -61,19 +59,19 @@ public class CLI {
             System.out.print("Digite o nome do produto: ");
             name = scanner.nextLine().trim();
             if (!name.isEmpty()) {
-                break; // Sai do loop se o nome não estiver vazio
+                break;
             } else {
                 System.out.println("O nome do produto não pode ser vazio. Por favor, insira um nome válido.");
             }
         }
-    
+
         int quantity = 0;
         while (true) {
             System.out.print("Digite a quantidade em estoque: ");
             String quantityInput = scanner.nextLine();
             try {
                 quantity = Integer.parseInt(quantityInput);
-                break; // Sai do loop se a entrada for válida
+                break;
             } catch (NumberFormatException e) {
                 System.out.println("Quantidade inválida. Por favor, insira um número inteiro.");
             }
@@ -84,49 +82,48 @@ public class CLI {
             System.out.print("Digite a categoria do produto: ");
             category = scanner.nextLine().trim();
             if (!category.isEmpty()) {
-                break; // Sai do loop se a categoria não estiver vazia
+                break;
             } else {
-                System.out.println("A categoria do produto não pode ser vazia. Por favor, insira uma categoria válida.");
+                System.out
+                        .println("A categoria do produto não pode ser vazia. Por favor, insira uma categoria válida.");
             }
         }
-    
+
         double price = 0.0;
         while (true) {
             System.out.print("Digite o preço unitário do produto: ");
             String priceInput = scanner.nextLine().replace(",", ".");
             try {
                 price = Double.parseDouble(priceInput);
-                break; // Sai do loop se a entrada for válida
+                break;
             } catch (NumberFormatException e) {
                 System.out.println("Preço inválido. Por favor, insira um número decimal.");
             }
         }
-    
+
         String description;
         while (true) {
             System.out.print("Digite a descrição do produto: ");
             description = scanner.nextLine().trim();
             if (!description.isEmpty()) {
-                break; // Sai do loop se a descrição não estiver vazia
+                break;
             } else {
-                System.out.println("A descrição do produto não pode ser vazia. Por favor, insira uma descrição válida.");
+                System.out
+                        .println("A descrição do produto não pode ser vazia. Por favor, insira uma descrição válida.");
             }
         }
-    
+
         int id = productService.generateNewId();
-        Product product = new Product(id, name, quantity,category, price, description);
+        Product product = new Product(id, name, quantity, category, price, description);
         productService.addProduct(product);
         System.out.println("Produto adicionado com sucesso!");
     }
-    
-    
+
     private void listProducts() {
         System.out.println("Lista de produtos:");
-    
-        // Opção de filtrar por categoria
         System.out.print("Deseja filtrar por categoria? (S/N): ");
         String filterChoice = scanner.nextLine().trim().toUpperCase();
-    
+
         List<Product> filteredProducts;
         if (filterChoice.equals("S")) {
             System.out.print("Digite a categoria para filtrar: ");
@@ -137,34 +134,32 @@ public class CLI {
         } else {
             filteredProducts = productService.getAllProducts();
         }
-    
-        // Exibe os produtos em formato de tabela
+
         System.out.printf("%-5s %-20s %-15s %-10s %-10s%n", "ID", "Nome", "Categoria", "Quantidade", "Preço");
         System.out.println("---------------------------------------------------------------");
         filteredProducts.forEach(product -> {
-            System.out.printf("%-5d %-20s %-15s %-10d %-10.2f%n", 
-                    product.getId(), 
-                    product.getName(), 
-                    product.getCategory(), 
-                    product.getQuantity(), 
+            System.out.printf("%-5d %-20s %-15s %-10d %-10.2f%n",
+                    product.getId(),
+                    product.getName(),
+                    product.getCategory(),
+                    product.getQuantity(),
                     product.getPrice());
         });
-    
+
         if (filteredProducts.isEmpty()) {
             System.out.println("Nenhum produto encontrado para a categoria especificada.");
         }
     }
-    
 
     private void updateProduct() {
         System.out.print("Digite o ID do produto que deseja editar: ");
         int id = scanner.nextInt();
         scanner.nextLine(); // Consumir a nova linha
-    
+
         try {
             Product existingProduct = productService.getProductById(id);
             System.out.println("Produto encontrado: " + existingProduct.getName());
-    
+
             System.out.print("Digite o novo nome do produto (deixe em branco para manter o nome atual): ");
             String name = scanner.nextLine();
             if (!name.isEmpty()) {
@@ -174,7 +169,7 @@ public class CLI {
                 }
                 existingProduct.setName(name);
             }
-    
+
             System.out.print("Digite a nova quantidade do produto (deixe em branco para manter a quantidade atual): ");
             String quantityInput = scanner.nextLine();
             if (!quantityInput.isEmpty()) {
@@ -190,7 +185,7 @@ public class CLI {
                     return;
                 }
             }
-    
+
             System.out.print("Digite a nova categoria do produto (deixe em branco para manter a categoria atual): ");
             String category = scanner.nextLine();
             if (!category.isEmpty()) {
@@ -200,7 +195,7 @@ public class CLI {
                 }
                 existingProduct.setCategory(category);
             }
-    
+
             System.out.print("Digite o novo preço do produto (deixe em branco para manter o preço atual): ");
             String priceInput = scanner.nextLine();
             if (!priceInput.isEmpty()) {
@@ -216,7 +211,7 @@ public class CLI {
                     return;
                 }
             }
-    
+
             System.out.print("Digite a nova descrição do produto (deixe em branco para manter a descrição atual): ");
             String description = scanner.nextLine();
             if (!description.isEmpty()) {
@@ -226,21 +221,19 @@ public class CLI {
                 }
                 existingProduct.setDescription(description);
             }
-    
+
             productService.updateProduct(existingProduct);
             System.out.println("Produto atualizado com sucesso!");
         } catch (RuntimeException e) {
             System.out.println("Erro ao atualizar o produto: " + e.getMessage());
         }
     }
-    
-    
-    
+
     private void deleteProduct() {
         System.out.print("Digite o ID do produto que deseja excluir: ");
         int id = scanner.nextInt();
-        scanner.nextLine(); // Consumir a nova linha
-    
+        scanner.nextLine();
+
         try {
             Product product = productService.getProductById(id);
             System.out.println("Produto encontrado: ");
@@ -250,10 +243,10 @@ public class CLI {
             System.out.println("Quantidade: " + product.getQuantity());
             System.out.println("Preço: " + product.getPrice());
             System.out.println("Descrição: " + product.getDescription());
-    
+
             System.out.print("Tem certeza que deseja excluir este produto? (s/n): ");
             String confirmation = scanner.nextLine();
-    
+
             if (confirmation.equalsIgnoreCase("s")) {
                 productService.removeProductById(id);
                 System.out.println("Produto excluído com sucesso!");
@@ -264,7 +257,6 @@ public class CLI {
             System.out.println("Erro: " + e.getMessage());
         }
     }
-    
 
     private void searchProducts() {
         System.out.println("Buscar produto:");
@@ -291,7 +283,8 @@ public class CLI {
         } else {
             results.forEach(product -> {
                 System.out.println("ID: " + product.getId() + ", Nome: " + product.getName() +
-                        ", Preço: " + product.getPrice() + ", Quantidade: " + product.getQuantity() + "Category: " + product.getCategory() +
+                        ", Preço: " + product.getPrice() + ", Quantidade: " + product.getQuantity() + "Category: "
+                        + product.getCategory() +
                         ", Descrição: " + product.getDescription());
             });
         }

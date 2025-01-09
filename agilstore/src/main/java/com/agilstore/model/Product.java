@@ -11,7 +11,6 @@ public class Product {
     public Product() {
     }
 
-    // Construtor
     public Product(int id, String name, int quantity, String category, double price, String description) {
         this.id = id;
         this.name = name;
@@ -21,7 +20,6 @@ public class Product {
         this.description = description;
     }
 
-    // Getters e Setters
     public int getId() {
         return id;
     }

@@ -1,1 +1,5 @@
+com/agilstore/repository/ProductRepo.class
+com/agilstore/service/ProductService.class
+com/agilstore/model/Product.class
 com/agilstore/Main.class
+com/agilstore/cli/CLI.class
